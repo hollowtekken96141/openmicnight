@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Open Mic Night</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #e8dcc4;
+            color: #3a2f28;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Dither Effect Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(0,0,0,.03), rgba(0,0,0,.03) 1px, transparent 1px, transparent 2px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,.03), rgba(0,0,0,.03) 1px, transparent 1px, transparent 2px),
+                repeating-linear-gradient(45deg, rgba(255,255,255,.05), rgba(255,255,255,.05) 2px, transparent 2px, transparent 4px);
+            background-size: 4px 4px, 4px 4px, 6px 6px;
+            background-position: 0 0, 2px 2px, 0 0;
+            pointer-events: none;
+            z-index: 9999;
+            animation: dither-shift 0.5s infinite;
+        }
+
+        @keyframes dither-shift {
+            0% {
+                background-position: 0 0, 2px 2px, 0 0;
+                opacity: 0.95;
+            }
+            50% {
+                background-position: 1px 1px, 7px 7px, 1px 1px;
+                opacity: 0.5;
+            }
+            100% {
+                background-position: 0 0, 2px 2px, 0 0;
+                opacity: 0.95;
+            }
+        }
+
+        /* Parallax Background */
+        .parallax-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background-image: url('3D24ABEH6TPAASS3STJ4XYMBE7SCZWRN.gif');
+            background-size: auto;
+            background-repeat: repeat;
+            background-attachment: fixed;
+            z-index: -1;
+            filter: brightness(1.1) sepia(0.8);
+        }
+
+        /* Header */
+        header {
+            background-image: url('DSC_0009.JPG');
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #6b4423;
+        }
+
+        .header-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo { font-size: 28px; font-weight: bold; color: #6b4423; letter-spacing: 1px; }
+
+        nav a {
+            display: inline-block; margin-left: 30px;
+            color: #6b4423; text-decoration: none;
+            font-size: 19px; font-weight: 600;
+        }
+
+        /* Full-width GIF */
+        .page-gif {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            margin: 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1;
+        }
+
+        /* Featured Artists Section */
+        .featured-artists-section {
+            background-image: url('opnmicnt.png');
+            padding: 60px 20px; margin: 40px 0;
+        }
+
+        .section-title {
+            text-align: center; font-size: 32px; margin-bottom: 50px;
+            color: #6b4423; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px; margin-bottom: 40px;
+        }
+
+        .artist-card {
+            background: linear-gradient(135deg,#d4a574 0%,#c19a6b 50%,#8b6f47 100%);
+            border: 3px solid #6b4423; padding: 25px; text-align: center;
+        }
+
+        .artist-name { font-size: 20px; font-weight: bold; color: #fff; margin-bottom: 15px; }
+
+        .artist-links { display:flex; justify-content:center; gap:20px; }
+
+        .artist-link {
+            display:inline-block;
+            background-color:#6b4423;
+            color:#e8dcc4;
+            padding:10px 20px;
+            text-decoration:none;
+            font-weight:600;
+            border:2px solid #3a2f28;
+        }
+
+        footer {
+            background-color:#6b4423; color:#e8dcc4; text-align:center; padding:30px 20px;
+            margin-top:80px; border-top:3px solid #3a2f28;
+        }
+
+        footer p { font-size:14px; }
+
+        @media (max-width:768px){
+            .header-container { flex-direction:column; gap:15px; }
+            nav a { display:inline-block; margin:5px 10px; }
+            .artists-grid { grid-template-columns:1fr; }
+            .section-title { font-size:24px; }
+            .logo { font-size:24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-bg"></div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo"> </div>
+           <!-- <img src="opnmcntlogo.png" alt="Open Mic Night Logo" style="height:70px;"> -->
+            <nav>
+                <a href="https://soundcloud.com/openmicnightnextweekend" target="_blank" rel="noopener noreferrer">SoundCloud</a>
+                <a href="#merch" onclick="alert('Merch store coming soon!')">Merch</a>
+                <a href="https://www.instagram.com/openmicnighttt" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Full-width GIF placed directly on the page -->
+    <img src="ezgifhighres.gif" alt="Featured" class="page-gif" onclick="window.open('https://soundcloud.com/openmicnightnextweekend', '_blank')">
+
+    <div class="container">
+        <div class="featured-artists-section">
+            <h2 class="section-title">Featured Artists</h2>
+            <div class="artists-grid">
+                <div class="artist-card">
+                    <div class="artist-name">♬︎Feral Cat</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/feralcatshelter" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/feralcatshelter" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬︎Dollface</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/dollfacexxx" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/2dolldup" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬Swords2</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/swords2" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://instagram.com/2swords2" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬Paper Armoury</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/paperarmoury" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/paper.armoury" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬tohearttwo</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/shizukupc98" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/shizukupc98" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬Porkbelly</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/crispyporkbelly" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/cherishmwah" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬SoggyPaperDiary</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/soggy-diary" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/cherishmwah" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬dovesdiecrashing</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/dovesdiecrashing" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/dovesdiecrashing" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬meadow parkway</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/meadow_parkway" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬illusionsofpeace</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/illusionsxpeace" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/illusionsofpeace" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬cherish me</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/preciousmoment" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/cherishmwah/" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬osh1n</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/osh1n_xo" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://instagram.com/osh1n.xo" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬bennyxgomes</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/bennyblasay" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/openmicnighttt" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬assdirt</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/assdirt" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/openmicnighttt" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬d8ity</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/d8ity" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/openmicnighttt" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬stevie☆starlight</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/stevie_starlight" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/stevenstearns" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬songslifestyle</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/vidrio12" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/songslifestyle_" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬ephemerid</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/ephemerid1" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/openmicnighttt" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬gleeko</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/gleekoz" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://www.instagram.com/openmicnighttt" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">♬hollowtekken96141</div>
+                    <div class="artist-links">
+                        <a href="https://soundcloud.com/emotionalsoldiers" target="_blank" rel="noopener noreferrer" class="artist-link">SoundCloud</a>
+                        <a href="https://instagram.com/everything_i_surrendered" target="_blank" rel="noopener noreferrer" class="artist-link">Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p> 2026 Open Mic Night. Have a nice night! :]</p>
+    </footer>
+
+    <script>
+        // Ensure all external links opened in new tabs include rel="noopener noreferrer"
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[target="_blank"]').forEach(function(a) {
+                try {
+                    var rels = (a.rel || '').split(/\s+/).filter(Boolean);
+                    if (!rels.includes('noopener')) rels.push('noopener');
+                    if (!rels.includes('noreferrer')) rels.push('noreferrer');
+                    a.rel = rels.join(' ');
+                } catch (e) {
+                    a.rel = 'noopener noreferrer';
+                }
+            });
+        });
+    </script>
+</body>
+<!-- Webpage created by Swords2hollowtekken96141 :P -->
+</html>
